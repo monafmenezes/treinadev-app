@@ -4,7 +4,7 @@ export interface IUserSession {
 }
 
 export interface IUserCreate extends IUserSession {
-  display_name: string;
+  name: string;
   isAdmin: boolean;
   created: Date;
 }

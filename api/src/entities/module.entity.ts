@@ -25,7 +25,7 @@ export class Module {
   @ManyToOne((type) => Course, (course) => course.modules)
   course: Course;
 
-  @OneToMany((type) => Lesson, (lesson) => lesson.modules, {
+  @OneToMany((type) => Lesson, (lesson) => lesson.module, {
     eager: true,
   })
   lesson: Lesson[];

@@ -1,31 +1,36 @@
 import * as yup from "yup";
-import * as bcrypt from "bcryptjs";
-import { IUserCreate } from "../interfaces/user.interfaces"
 import { SchemaOf } from "yup";
-import { titlelify } from "../utils";
+import { IUserCreate } from "../interfaces/user.interfaces";
+import { NextFunction, Request, Response } from "express";
 
-const userCreateSchema: SchemaOf<IUserCreate> = yup.object().shape({
-  name: yup
-  .string()
-  .required()
-  .transform((value, originalValue) => { 
-      return titlelify(originalValue) 
-  }),
-  username: yup
-      .string()
-      .required()
-      .transform((value, originalValue) => { 
-          return originalValue.toLowerCase() 
-      }),
-  password: yup
-      .string()
-      .required()
-      .transform((value, originalValue) => { 
-          return bcrypt.hashSync(originalValue, 10) 
-      }),
-  isAdm: yup
-      .boolean()
-      .required(),
-})
-
-export { userCreateSchema } ;
+export const createUserSchema: SchemaOf<IUserCreate> = yup.object().shape({
+    name: yup.string().required("Nome é obrigatório"),
+    password: yup.string().required("Senha é obrigatório"),
+    username: yup.string().required("Username é obrigatório"),
+    isAdmin: yup.boolean().required("Verificação de cargo é obrigatório"),
+  });
+  
+  export const validateUserCreation =
+    (schema: SchemaOf<IUserCreate>) =>
+    async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        const data = req.body;
+  
+        try {
+          const validatedData = await schema.validate(data, {
+            abortEarly: false,
+            stripUnknown: true,
+          });
+  
+          req.validUser = validatedData;
+          next();
+        } catch (err: any) {
+          return res.status(400).json({
+            status: "error",
+            message: err.errors?.join(","),
+          });
+        }
+      } catch (err) {
+        next(err);
+      }
+    };

@@ -6,11 +6,16 @@ export interface IUserSession {
 export interface IUserCreate extends IUserSession {
   name: string;
   isAdmin: boolean;
-  created: Date;
 }
 
 export interface IUser extends IUserCreate {
   id: string;
+}
+
+export interface IUserUpdate {
+  id: string;
+  name: string;
+  password: string;
 }
 
 export interface IUserId {

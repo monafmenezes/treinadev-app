@@ -2,9 +2,9 @@ import { compare, hash } from "bcryptjs";
 import { AppDataSource } from "../../data-source";
 import { User } from "../../entities/user.entity";
 import AppError from "../../errors/AppError";
-import { IUser } from "../../interfaces/user.interfaces";
+import { IUserUpdate } from "../../interfaces/user.interfaces";
 
-const updateUserService = async ({ id, name, password }: IUser) => {
+const updateUserService = async ({ id, name, password }: IUserUpdate) => {
   const userRepository = AppDataSource.getRepository(User);
   const user = await userRepository.findOne({ where: { id } });
   if (!user) {

@@ -1,9 +1,9 @@
 import { AppDataSource } from "../../data-source";
 import { User } from "../../entities/user.entity";
 import AppError from "../../errors/AppError";
-import { IUser } from "../../interfaces/user.interfaces";
+import { IUser, IUserId } from "../../interfaces/user.interfaces";
 
-const userListService = async ({ id }: IUser) => {
+const userListService = async ({ id }: IUserId) => {
   const userRepository = AppDataSource.getRepository(User);
   const user = await userRepository.findOne({ where: { id }});
 

@@ -20,6 +20,7 @@ const createUserService = async ({ username, name, password, isAdmin }: IUserCre
   user.password = hashedPassword;
   user.username = username;
   user.isAdmin = isAdmin;
+  user.created = new Date();
 
   userRepository.create(user);
 

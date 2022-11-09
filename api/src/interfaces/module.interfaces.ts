@@ -2,9 +2,17 @@ export interface IModuleCreate {
   course_id: string;
   title: string;
   description: string;
-  created: Date;
 }
 
 export interface IModule extends IModuleCreate {
   id: string;
+}
+
+export interface IModuleId {
+  id: string;
+}
+
+export interface IModuleUpdate extends IModuleId {
+  title: string;
+  description: string;
 }

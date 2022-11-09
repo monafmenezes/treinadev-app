@@ -28,7 +28,7 @@ export default class UserController {
     return res.json(user);
   }
 
-  static async updtate(req: Request, res: Response) {
+  static async update(req: Request, res: Response) {
     const { id } = req.params;
     const { name, password } = req.body;
 

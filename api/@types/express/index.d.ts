@@ -1,5 +1,5 @@
 import * as express from "express";
-import { ICouseCreate } from "../../src/interfaces/couse.interfaces";
+import { ICouseCreate } from "../../src/interfaces/course.interfaces";
 import { ILessonCreate } from "../../src/interfaces/lesson.interfaces";
 import { IModuleCreate } from "../../src/interfaces/module.interfaces";
 import {
@@ -14,7 +14,7 @@ declare global {
         id: string;
       };
       validUser: IUserCreate;
-      validCouse: ICouseCreate;
+      validCourse: ICouseCreate;
       validLesson: ILessonCreate;
       validModule: IModuleCreate;
       validSession: IUserSession;

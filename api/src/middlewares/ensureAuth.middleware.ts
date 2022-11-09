@@ -14,11 +14,10 @@ const ensureAuthMiddleware = (
   }
 
   try {
-    const [, token] = jwtToken?.split(" ");
-
     const secret = process.env.SECRET_KEY || "default";
 
-    const decoded = jwt.verify(token, secret);
+    const decoded = jwt.verify(jwtToken, secret);
+
 
     const { sub } = decoded;
 

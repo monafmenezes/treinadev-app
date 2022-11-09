@@ -2,13 +2,14 @@ import { Router } from "express";
 import CourseController from "../controllers/Courses.controller";
 import checkAdmMiddleware from "../middlewares/checkAdm.middleware";
 import ensureAuthMiddleware from "../middlewares/ensureAuth.middleware";
+import { createCourseSchema, validateCourseCreation } from "../validations/courseCreate.validation";
 
 const courseRoutes = Router();
 
 courseRoutes.post(
-  "/",
-  checkAdmMiddleware,
+  "/", validateCourseCreation(createCourseSchema),
   ensureAuthMiddleware,
+  checkAdmMiddleware,
   CourseController.store
 );
 courseRoutes.get("/", ensureAuthMiddleware, CourseController.index);

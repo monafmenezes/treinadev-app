@@ -1,3 +1,4 @@
+import { instanceToPlain } from "class-transformer";
 import { Request, Response } from "express";
 import moduleListService from "../services/modules/moduleList.service";
 import moduleCreateService from "../services/modules/modulesCreate.service";
@@ -8,16 +9,16 @@ import updateModuleService from "../services/modules/modulesUpdate.service";
 
 export default class ModuleController {
   static async store(req: Request, res: Response) {
-    const { title, description, course_id } = req.validModule;
-    const module = await moduleCreateService({ title, description, course_id });
+    const { title, description, courseId } = req.validModule;
+    const module = await moduleCreateService({ title, description, courseId });
 
-    return res.status(201).json(module);
+    return res.status(201).json(instanceToPlain(module));
   }
 
   static async index(req: Request, res: Response) {
     const module = await modulesListService();
 
-    return res.json(module);
+    return res.json(instanceToPlain(module));
   }
 
   static async list(req: Request, res: Response) {

@@ -1,3 +1,4 @@
+import { instanceToPlain } from "class-transformer";
 import { Request, Response } from "express";
 import lessonCreateService from "../services/lessons/lessonCreate.service";
 import deleteLessonService from "../services/lessons/lessonDelete.service";
@@ -10,13 +11,13 @@ export default class LessonController {
     const { title, description, moduleId, date_lesson } = req.validLesson;
     const lesson = await lessonCreateService({ title, description, moduleId, date_lesson });
 
-    return res.status(201).json(lesson);
+    return res.status(201).json(instanceToPlain(lesson));
   }
 
   static async index(req: Request, res: Response) {
     const lesson = await lessonsListService();
 
-    return res.json(lesson);
+    return res.json(instanceToPlain(lesson));
   }
 
   static async list(req: Request, res: Response) {

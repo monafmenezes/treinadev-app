@@ -1,11 +1,19 @@
 export interface ILessonCreate {
-  module_id: string;
+  moduleId: string;
   title: string;
   description: string;
-  created: Date;
   date_lesson: Date;
 }
 
 export interface ILesson extends ILessonCreate {
   id: string;
+}
+
+export interface ILessonId {
+  id: string;
+}
+
+export interface ILessonUpdate extends ILessonId {
+  title: string;
+  description: string;
 }

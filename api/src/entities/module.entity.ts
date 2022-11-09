@@ -22,6 +22,9 @@ export class Module {
   @Column()
   created: Date;
 
+  @Column()
+  courseId: string;
+
   @ManyToOne((type) => Course, (course) => course.modules)
   course: Course;
 

@@ -4,7 +4,7 @@ import AppError from "../../errors/AppError";
 import { IModuleCreate } from "../../interfaces/module.interfaces";
 
 
-const moduleCreateService = async ({ title, description, course_id }: IModuleCreate) => {
+const moduleCreateService = async ({ title, description, courseId }: IModuleCreate) => {
   const moduleRepository = AppDataSource.getRepository(Module);
   const titleFind = await moduleRepository.findOne({ where: { title } });
 
@@ -16,6 +16,7 @@ const moduleCreateService = async ({ title, description, course_id }: IModuleCre
 
  module.title = title;
  module.description = description;
+ module.courseId = courseId;
  module.created = new Date();
 
  moduleRepository.create(module);

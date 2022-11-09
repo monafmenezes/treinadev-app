@@ -21,6 +21,9 @@ export class Lesson {
   created: Date;
 
   @Column()
+  moduleId: string;
+
+  @Column()
   date_lesson: Date;
 
   @ManyToOne((type) => Module, (module) => module.lesson)

@@ -9,7 +9,7 @@
     "node": "16.14.2"
   },
   "scripts": {
-    "build": "rm -rf ./api/dist && tsc",
-    "start": "node ./api/dist/index.js"
+    "build": "tsc",
+    "start": "node api/dist/src/server.js"
   }
 }

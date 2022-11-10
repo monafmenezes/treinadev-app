@@ -5,6 +5,9 @@
   "repository": "git@github.com:monafmenezes/treinadev.git",
   "author": "Monalisa Menezes <monalisa.menezes@onesight.com.br>",
   "license": "MIT",
+  "engines": {
+    "node": "16.14.2"
+  },
   "scripts": {
     "build": "rm -rf ./api/dist && tsc",
     "start": "node ./api/dist/index.js"

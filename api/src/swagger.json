@@ -1,0 +1,948 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title" : "Treinadev API Documentation",
+    "description": "API utilizada no backend do site de cursos Treinadev e tem como objetivo cadastrar novos usuários, cursos, módulos e aulas para serem usados no frontend.",
+    "version": 1.0,
+    "contact": {
+      "email": "monafmenezesdev@gmail.com"
+    },
+    "termsOfService": "http://localhost:3000/terms"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/v1",
+      "description": "Production server"
+    }
+  ],
+  "paths": {
+    "/users": {
+      "post": {
+        "summary": "Cadastro de novos usuários",
+        "description": "Essa rota será responsável por cadastrar usuários dos tipos admin e não admin",
+        "tags": ["Users"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Users"
+              }, 
+              "examples": {
+                "user": {
+                  "value": {
+                    "name": "Monalisa Menezes",
+                    "username": "monafmenezes",
+                    "password": "senha123",
+                    "isAdmin": false
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "409": {
+            "description": "Já existe o username escolhido."
+          },
+          "201": {
+            "description": "OK", 
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Users"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Lista todos os usuários",
+        "description": "Essa rota será responsavel por listar todos os usuários",
+        "tags": ["Users"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "OK", 
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Users"
+                }
+              }
+            }
+          }, 
+          "404": {
+            "description": "Token de autenticação inexistente."
+          },
+          "401": {
+            "description": "Token inválido."
+          },
+          "403": {
+            "description": "Acesso negado - necessário ser Administrador."
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "summary": "Lista um usuário através da Id",
+        "description": "Essa rota será responsavel por listar um usuário através da Id",
+        "tags": ["Users"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id do usuário",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "OK", 
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Users"
+                }
+              }
+            }
+          }, 
+          "404": {
+            "description": "Id não localizado."
+          },
+          "401": {
+            "description": "Token inválido."
+          }
+        }
+      },
+      "patch": {
+        "summary": "Atualiza um usuário",
+        "description": "Essa rota será responsavel por atualizar um usuário através da Id",
+        "tags": ["Users"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id do usuário",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Users"
+              }, 
+              "examples": {
+                "user": {
+                  "value": {
+                    "name": "Monalisa Menezes",
+                    "password": "senha123"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "OK", 
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Users"
+                }
+              }
+            }
+          }, 
+          "404": {
+            "description": "Id não localizado."
+          },
+          "401": {
+            "description": "Token inválido."
+          }
+        }
+      },
+      "delete": {
+        "summary": "Deleta um usuário",
+        "description": "Essa rota será responsavel por deletar um usuário através da Id",
+        "tags": ["Users"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id do usuário",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Deleted"
+          }, 
+          "404": {
+            "description": "Id não localizado."
+          },
+          "401": {
+            "description": "Token inválido."
+          },
+          "403": {
+            "description": "Acesso negado - necessário ser Administrador."
+          }
+        }
+      }
+    },
+    "/courses": {
+      "post": {
+        "summary": "Cadastro de novos cursos",
+          "description": "Essa rota será responsável por cadastrar novos cursos",
+          "tags": ["Courses"],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Courses"
+                }, 
+                "examples": {
+                  "course": {
+                    "value": {
+                      "title": "JavaScript Básico",
+                      "description": "Curso direcionado a quemquer aprender a linguagem de programação JavaScrip."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "409": {
+              "description": "O curso já existe."
+            },
+            "201": {
+              "description": "OK", 
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/Courses"
+                  }
+                }
+              }
+            }, 
+            "404": {
+              "description": "Token de autenticação inexistente."
+            },
+            "401": {
+              "description": "Token inválido."
+            },
+            "403": {
+              "description": "Acesso negado - necessário ser Administrador."
+            }
+        }
+      },
+      "get": {
+        "summary": "Lista todos os cursos",
+        "description": "Essa rota será responsavel por listar todos os cursos",
+        "tags": ["Courses"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "OK", 
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Courses"
+                }
+              }
+            }
+          }, 
+          "404": {
+            "description": "Token de autenticação inexistente."
+          },
+          "401": {
+            "description": "Token inválido."
+          }
+        }
+      }
+    },
+    "/courses/{id}": {
+      "get": {
+        "summary": "Lista um curso através da Id",
+        "description": "Essa rota será responsavel por listar um curso através da Id",
+        "tags": ["Courses"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id do curso",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "OK", 
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Courses"
+                }
+              }
+            }
+          }, 
+          "404": {
+            "description": "Id não localizado."
+          },
+          "401": {
+            "description": "Token inválido."
+          }
+        }
+      },
+      "patch": {
+        "summary": "Atualiza um curso",
+        "description": "Essa rota será responsável por atualizar um curso",
+        "tags": ["Courses"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id do Curso",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Courses"
+              }, 
+              "examples": {
+                "course": {
+                  "value": {
+                    "title": "JavaScript Básico",
+                    "description": "Curso direcionado a quemquer aprender a linguagem de programação JavaScrip."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "OK", 
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Courses"
+                }
+              }
+            }
+          }, 
+          "404": {
+            "description": "Id não localizado."
+          },
+          "401": {
+            "description": "Token inválido."
+          }
+          },
+          "403": {
+            "description": "Acesso negado - necessário ser Administrador."
+          }
+        },
+        "delete": {
+          "summary": "Deleta um curso",
+          "description": "Essa rota será responsavel por deletar um curso através da Id",
+          "tags": ["Courses"],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "Id do curso",
+              "required": true
+            }
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Deleted"
+            }, 
+            "404": {
+              "description": "Id não localizado."
+            },
+            "401": {
+              "description": "Token inválido."
+            },
+            "403": {
+              "description": "Acesso negado - necessário ser Administrador."
+            }
+          }
+        }
+      },
+      "/modules": {
+        "post": {
+          "summary": "Cadastro de novos modulos",
+            "description": "Essa rota será responsável por cadastrar novos modulos",
+            "tags": ["Modules"],
+            "security": [
+              {
+                "bearerAuth": []
+              }
+            ],
+            "requestBody": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Modules"
+                  }, 
+                  "examples": {
+                    "module": {
+                      "value": {
+                        "title": "Módulo 1 - Conceitos Básicos",
+                        "description": "Conceitos como operadores, tipos de dados, sintaxe, entre outros",
+                        "courseId": "0dab0559-1a14-442d-8193-138c79f5"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "responses": {
+              "409": {
+                "description": "O modulo já existe."
+              },
+              "201": {
+                "description": "OK", 
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/Modules"
+                    }
+                  }
+                }
+              }, 
+              "404": {
+                "description": "Token de autenticação inexistente."
+              },
+              "401": {
+                "description": "Token inválido."
+              },
+              "403": {
+                "description": "Acesso negado - necessário ser Administrador."
+              }
+          }
+        },
+        "get": {
+          "summary": "Lista todos os modulos",
+          "description": "Essa rota será responsavel por listar todos os modulos",
+          "tags": ["Modules"],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "OK", 
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/Modules"
+                  }
+                }
+              }
+            }, 
+            "404": {
+              "description": "Token de autenticação inexistente."
+            },
+            "401": {
+              "description": "Token inválido."
+            }
+          }
+        }
+      },
+      "/modules/{id}": {
+        "get": {
+          "summary": "Lista um módulo através da Id",
+          "description": "Essa rota será responsavel por listar um módulo através da Id",
+          "tags": ["Modules"],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "Id do módulo",
+              "required": true
+            }
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "OK", 
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/Modules"
+                  }
+                }
+              }
+            }, 
+            "404": {
+              "description": "Id não localizado."
+            },
+            "401": {
+              "description": "Token inválido."
+            }
+          }
+        },
+        "patch": {
+          "summary": "Atualiza um modulo",
+          "description": "Essa rota será responsável por atualizar um modulo",
+          "tags": ["Modules"],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "Id do Módulo",
+              "required": true
+            }
+          ],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Modules"
+                }, 
+                "examples": {
+                  "modulo": {
+                    "value": {
+                      "title": "Módulo 1 - Conceitos Básicos",
+                      "description": "Conceitos como operadores, tipos de dados, sintaxe, entre outros"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "OK", 
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Modules"
+                }
+              }
+            }
+          }, 
+          "404": {
+            "description": "Id não localizado."
+          },
+          "401": {
+            "description": "Token inválido."
+          },
+          "403": {
+            "description": "Acesso negado - necessário ser Administrador."
+          }
+        }
+      },
+      "delete": {
+        "summary": "Deleta um modulo",
+        "description": "Essa rota será responsavel por deletar um modulo através da Id",
+        "tags": ["Modules"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id do modulo",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Deleted"
+          }, 
+          "404": {
+            "description": "Id não localizado."
+          },
+          "401": {
+            "description": "Token inválido."
+          },
+          "403": {
+            "description": "Acesso negado - necessário ser Administrador."
+          }
+        }
+      }
+    },
+    "/lessons": {
+      "post": {
+        "summary": "Cadastro de novas aulas",
+          "description": "Essa rota será responsável por cadastrar novas aulas",
+          "tags": ["Lessons"],
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Lessons"
+                }, 
+                "examples": {
+                  "lesson": {
+                    "value": {
+                      "title": "Operadores básicos",
+                      "description": "Soma, adição, subtração e produto",
+                      "moduleId": "57b0be75-3466-43c2-b3be-36072a1bb",
+                      "date_lesson": "10/11/2022"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "409": {
+              "description": "A aula já existe."
+            },
+            "201": {
+              "description": "OK", 
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/Lessons"
+                  }
+                }
+              }
+            }, 
+            "404": {
+              "description": "Token de autenticação inexistente."
+            },
+            "401": {
+              "description": "Token inválido."
+            },
+            "403": {
+              "description": "Acesso negado - necessário ser Administrador."
+            }
+        }
+      },
+      "get": {
+        "summary": "Lista todas as aulas",
+        "description": "Essa rota será responsavel por listar todas as aulas",
+        "tags": ["Lessons"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "OK", 
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Lessons"
+                }
+              }
+            }
+          }, 
+          "404": {
+            "description": "Token de autenticação inexistente."
+          },
+          "401": {
+            "description": "Token inválido."
+          }
+        }
+      }
+    },
+    "/lessons/{id}": {
+      "get": {
+        "summary": "Lista uma aula através da Id",
+        "description": "Essa rota será responsavel por listar uma aula através da Id",
+        "tags": ["Lessons"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id da aula",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "OK", 
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Lessons"
+                }
+              }
+            }
+          }, 
+          "404": {
+            "description": "Id não localizado."
+          },
+          "401": {
+            "description": "Token inválido."
+          },
+          "403": {
+            "description": "Acesso negado - necessário ser Administrador."
+          }
+        }
+      },
+      "patch": {
+        "summary": "Atualiza uma aula",
+        "description": "Essa rota será responsável por atualizar uma aula",
+        "tags": ["Lessons"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id da Aula",
+            "required": true
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Lessons"
+              }, 
+              "examples": {
+                "lesson": {
+                  "value": {
+                    "title": "Operadores Básicos"
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "201": {
+          "description": "OK", 
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "$ref": "#/components/schemas/Lessons"
+              }
+            }
+          }
+        }, 
+        "404": {
+          "description": "Id não localizado."
+        },
+        "401": {
+          "description": "Token inválido."
+        },
+        "403": {
+          "description": "Acesso negado - necessário ser Administrador."
+        }
+      }
+    },
+    "delete": {
+      "summary": "Deleta uma aula",
+      "description": "Essa rota será responsavel por deletar uma aula através da Id",
+      "tags": ["Lessons"],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "Id da aula",
+          "required": true
+        }
+      ],
+      "security": [
+        {
+          "bearerAuth": []
+        }
+      ],
+      "responses": {
+        "204": {
+          "description": "Deleted"
+        }, 
+        "404": {
+          "description": "Id não localizado."
+        },
+        "401": {
+          "description": "Token inválido."
+        }, 
+        "403": {
+          "description": "Acesso negado - necessário ser Administrador."
+        }
+      }
+    }
+  }
+},
+  "components": {
+
+    "schemas": {
+      "Users": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          },
+          "password":{
+            "type": "string"
+          },
+          "isAdmin": {
+            "type": "boolean"
+          },
+          "id": {
+            "type": "string"
+          }
+        }
+      },
+      "Courses": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          }
+        }
+      },
+      "Modules": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "courseId": {
+            "type": "string"
+          },
+          "created": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          }
+
+        }
+      }, 
+      "Lessons": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "moduleId": {
+            "type": "string"
+          },
+          "created": {
+            "type": "string"
+          },
+          "date_lesson": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          }
+
+        }
+    }
+},
+"securitySchemes": {
+  "bearerAuth": {
+    "type": "http",
+    "scheme": "bearer",
+    "bearerFormat": "JWT"
+    }
+  }
+}
+}

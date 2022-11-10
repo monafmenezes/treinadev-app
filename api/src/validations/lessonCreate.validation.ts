@@ -16,6 +16,7 @@ export const validatLessonCreation =
     try {
       const data = req.body;
 
+
       try {
         const validatedData = await schema.validate(data, {
           abortEarly: false,

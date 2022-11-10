@@ -6,7 +6,7 @@
   "author": "Monalisa Menezes <monalisa.menezes@onesight.com.br>",
   "license": "MIT",
   "engines": {
-    "node": "16.14.2"
+    "node": "16.16.0"
   },
   "scripts": {
     "build": "tsc --build",

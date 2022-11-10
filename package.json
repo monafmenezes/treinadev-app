@@ -9,7 +9,7 @@
     "node": "16.16.0"
   },
   "scripts": {
-    "build": "tsc --build",
+    "build": "rm -rf api/dist && tsc",
     "start": "node api/dist/src/server.js"
   },
   "packageManager": "yarn@1.22.19"

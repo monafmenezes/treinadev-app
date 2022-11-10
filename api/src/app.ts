@@ -5,7 +5,7 @@ import "dotenv/config";
 import ErrorMiddleware from "./middlewares/error.middleware";
 import routes from "./routes";
 import swaggerUi from "swagger-ui-express";
-import swaggerDocs from "../swagger.json";
+import swaggerDocs from "./swagger.json";
 
 const app = express();
 app.use(express.json());

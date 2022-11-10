@@ -5,7 +5,7 @@ const host = process.env.NODE_ENV === "dockerdev" ? "postgres" : "localhost";
 
 export const AppDataSource = new DataSource({
   type: "postgres",
-  url: process.env.NODE_ENV === "production" ? process.env.DB_URI : process.env.DATABASE_URL,
+  url: process.env.DATABASE_URL,
   ssl:
     process.env.NODE_ENV === "production"
       ? { rejectUnauthorized: false }

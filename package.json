@@ -11,5 +11,6 @@
   "scripts": {
     "build": "tsc",
     "start": "node api/dist/src/server.js"
-  }
+  },
+  "packageManager": "yarn@3.2.1"
 }

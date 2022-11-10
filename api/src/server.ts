@@ -1,12 +1,18 @@
-import app from './app'
-import { AppDataSource } from './data-source' 
+import "dotenv/config";
+import "reflect-metadata";
 
-async function init () {
-  const PORT = process.env.PORT || 3000
+import app from "./app";
+import { AppDataSource } from "./data-source";
 
-  await AppDataSource.initialize() 
+(async () => {
+  await AppDataSource.initialize().catch((err) => {
+    console.error("Error during data source initialization");
+    console.error(err);
+  });
 
-  app.listen(PORT, () => console.log('Running at http://localhost:' + PORT))
-}
-
-init()
+  app.listen(process.env.PORT || 3000, () => {
+    if (!process.env.PORT) {
+      console.log("Running at 3000");
+    }
+  });
+})();

@@ -33,7 +33,7 @@ export default class UserController {
 
     const user = await updateUserService({ id, name, password });
 
-    return res.json(user);
+    return res.status(200).json(user);
   }
 
   static async delete(req: Request, res: Response) {

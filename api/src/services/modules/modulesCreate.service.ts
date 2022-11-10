@@ -3,8 +3,11 @@ import { Module } from "../../entities/module.entity";
 import AppError from "../../errors/AppError";
 import { IModuleCreate } from "../../interfaces/module.interfaces";
 
-
-const moduleCreateService = async ({ title, description, courseId }: IModuleCreate) => {
+const moduleCreateService = async ({
+  title,
+  description,
+  courseId,
+}: IModuleCreate) => {
   const moduleRepository = AppDataSource.getRepository(Module);
   const titleFind = await moduleRepository.findOne({ where: { title } });
 
@@ -14,12 +17,12 @@ const moduleCreateService = async ({ title, description, courseId }: IModuleCrea
 
   const module = new Module();
 
- module.title = title;
- module.description = description;
- module.courseId = courseId;
- module.created = new Date();
+  module.title = title;
+  module.description = description;
+  module.courseId = courseId;
+  module.created = new Date();
 
- moduleRepository.create(module);
+  moduleRepository.create(module);
 
   await moduleRepository.save(module);
 

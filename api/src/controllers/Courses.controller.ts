@@ -8,7 +8,6 @@ import updateCourseService from "../services/courses/courseUpdate.service";
 
 export default class CourseController {
   static async store(req: Request, res: Response) {
-    
     const { title, description } = req.validCourse;
     const course = await createCourseService({ title, description });
 

@@ -1,9 +1,7 @@
-import { Course } from "../entities/course.entity";
-
 export interface IModuleCreate {
-  courseId: string;
   title: string;
   description: string;
+  courseId: string;
 }
 
 export interface IModule extends IModuleCreate {

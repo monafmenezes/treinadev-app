@@ -16,14 +16,14 @@ courseRoutes.get("/", ensureAuthMiddleware, CourseController.index);
 courseRoutes.get("/:id", ensureAuthMiddleware, CourseController.list);
 courseRoutes.patch(
   "/:id",
-  checkAdmMiddleware,
   ensureAuthMiddleware,
+  checkAdmMiddleware,
   CourseController.update
 );
 courseRoutes.delete(
   "/:id",
-  checkAdmMiddleware,
   ensureAuthMiddleware,
+  checkAdmMiddleware,
   CourseController.delete
 );
 

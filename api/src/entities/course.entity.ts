@@ -1,9 +1,4 @@
-import {
-  Entity,
-  Column,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from "typeorm";
+import { Entity, Column, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Module } from "./module.entity";
 
 @Entity("courses")
@@ -23,6 +18,5 @@ export class Course {
   @OneToMany((type) => Module, (module) => module.course, {
     eager: true,
   })
-  modules: Module[]
-
+  modules: Module[];
 }

@@ -3,7 +3,11 @@ import { Module } from "../../entities/module.entity";
 import AppError from "../../errors/AppError";
 import { IModule, IModuleUpdate } from "../../interfaces/module.interfaces";
 
-const updateModuleService = async ({ id, title, description }: IModuleUpdate) => {
+const updateModuleService = async ({
+  id,
+  title,
+  description,
+}: IModuleUpdate) => {
   const moduleRepository = AppDataSource.getRepository(Module);
   const module = await moduleRepository.findOne({ where: { id } });
   if (!module) {

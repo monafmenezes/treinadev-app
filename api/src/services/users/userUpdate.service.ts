@@ -19,11 +19,11 @@ const updateUserService = async ({ id, name, password }: IUserUpdate) => {
       const hashedPassword = await hash(password, 8);
       user.password = hashedPassword;
     }
-   }
+  }
 
-   await userRepository.save(user);
+  await userRepository.save(user);
 
-   return user;
+  return user;
 };
 
 export default updateUserService;

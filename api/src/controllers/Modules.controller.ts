@@ -6,7 +6,6 @@ import deleteModuleService from "../services/modules/modulesDelete.service";
 import modulesListService from "../services/modules/modulesList.service";
 import updateModuleService from "../services/modules/modulesUpdate.service";
 
-
 export default class ModuleController {
   static async store(req: Request, res: Response) {
     const { title, description, courseId } = req.validModule;

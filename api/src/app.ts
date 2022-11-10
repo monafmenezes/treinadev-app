@@ -15,4 +15,4 @@ app.get("/", (req, res) => {
 app.use(routes);
 app.use(ErrorMiddleware);
 
-export default app
+export default app;

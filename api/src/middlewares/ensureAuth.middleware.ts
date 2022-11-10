@@ -18,7 +18,6 @@ const ensureAuthMiddleware = (
 
     const decoded = jwt.verify(jwtToken, secret);
 
-
     const { sub } = decoded;
 
     req.user = {
@@ -29,7 +28,6 @@ const ensureAuthMiddleware = (
   } catch (err) {
     throw new AppError("Token inválido", 401);
   }
-
-}
+};
 
 export default ensureAuthMiddleware;

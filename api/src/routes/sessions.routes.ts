@@ -1,7 +1,9 @@
 import { Router } from "express";
 import SessionController from "../controllers/Sessions.controller";
-import { sessionsLogin, validateSessionsLogin } from "../validations/sessionsLogin.validation";
-
+import {
+  sessionsLogin,
+  validateSessionsLogin,
+} from "../validations/sessionsLogin.validation";
 
 const sessionRoutes = Router();
 

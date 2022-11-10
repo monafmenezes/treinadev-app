@@ -4,9 +4,14 @@ import { User } from "../../entities/user.entity";
 import AppError from "../../errors/AppError";
 import { IUserCreate } from "../../interfaces/user.interfaces";
 
-const createUserService = async ({ username, name, password, isAdmin }: IUserCreate) => {
+const createUserService = async ({
+  username,
+  name,
+  password,
+  isAdmin,
+}: IUserCreate) => {
   const userRepository = AppDataSource.getRepository(User);
-  const usernameFind = await userRepository.findOne({ where: { name } })
+  const usernameFind = await userRepository.findOne({ where: { name } });
 
   if (usernameFind) {
     throw new AppError("Já existe o username escolhido", 409);
@@ -27,6 +32,6 @@ const createUserService = async ({ username, name, password, isAdmin }: IUserCre
   await userRepository.save(user);
 
   return user;
-}
+};
 
 export default createUserService;

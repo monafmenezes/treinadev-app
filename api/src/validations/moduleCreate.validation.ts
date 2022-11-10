@@ -1,17 +1,16 @@
 import * as yup from "yup";
 import { SchemaOf } from "yup";
-import { IUserCreate } from "../interfaces/user.interfaces";
 import { NextFunction, Request, Response } from "express";
+import { IModuleCreate } from "../interfaces/module.interfaces";
 
-export const createUserSchema: SchemaOf<IUserCreate> = yup.object().shape({
-  name: yup.string().required("Nome é obrigatório"),
-  password: yup.string().required("Senha é obrigatório"),
-  username: yup.string().required("Username é obrigatório"),
-  isAdmin: yup.boolean().required("Verificação de cargo é obrigatório"),
+export const createModuleSchema: SchemaOf<IModuleCreate> = yup.object().shape({
+  title: yup.string().required("Título é obrigatório"),
+  description: yup.string().required("Descrição é obrigatório"),
+  courseId: yup.string().required("O id do curso é obrigatório"),
 });
 
-export const validateUserCreation =
-  (schema: SchemaOf<IUserCreate>) =>
+export const validateModuleCreation =
+  (schema: SchemaOf<IModuleCreate>) =>
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const data = req.body;
@@ -22,7 +21,7 @@ export const validateUserCreation =
           stripUnknown: true,
         });
 
-        req.validUser = validatedData;
+        req.validModule = validatedData;
         next();
       } catch (err: any) {
         return res.status(400).json({

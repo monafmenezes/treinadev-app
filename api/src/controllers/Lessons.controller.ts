@@ -9,7 +9,12 @@ import updateLessonService from "../services/lessons/lessonUpdate.service";
 export default class LessonController {
   static async store(req: Request, res: Response) {
     const { title, description, moduleId, date_lesson } = req.validLesson;
-    const lesson = await lessonCreateService({ title, description, moduleId, date_lesson });
+    const lesson = await lessonCreateService({
+      title,
+      description,
+      moduleId,
+      date_lesson,
+    });
 
     return res.status(201).json(instanceToPlain(lesson));
   }

@@ -1,4 +1,3 @@
-
 import { Request, Response, NextFunction } from "express";
 import * as yup from "yup";
 import { SchemaOf } from "yup";
@@ -29,8 +28,7 @@ export const validateSessionsLogin =
           message: err.errors?.join(", "),
         });
       }
-    } catch(err) {
+    } catch (err) {
       next(err);
     }
   };
-  

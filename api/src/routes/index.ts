@@ -11,6 +11,6 @@ routes.use("/users", userRoutes);
 routes.use("/login", sessionRoutes);
 routes.use("/courses", courseRoutes);
 routes.use("/lessons", lessonRoutes);
-routes.use('/modules', moduleRoutes);
+routes.use("/modules", moduleRoutes);
 
 export default routes;

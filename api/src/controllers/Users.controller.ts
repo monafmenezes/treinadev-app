@@ -6,8 +6,7 @@ import listUsersService from "../services/users/usersList.service";
 import updateUserService from "../services/users/userUpdate.service";
 
 export default class UserController {
-
-  static async store(req: Request, res: Response)  {
+  static async store(req: Request, res: Response) {
     const { name, username, password, isAdmin } = req.validUser;
     const user = await createUserService({ name, password, isAdmin, username });
 
@@ -44,5 +43,4 @@ export default class UserController {
 
     return res.status(204).json();
   }
-
 }

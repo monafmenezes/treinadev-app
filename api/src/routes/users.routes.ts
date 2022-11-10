@@ -14,7 +14,12 @@ userRoutes.post(
   validateUserCreation(createUserSchema),
   UserController.store
 );
-userRoutes.get("/", ensureAuthMiddleware, checkAdmMiddleware, UserController.index);
+userRoutes.get(
+  "/",
+  ensureAuthMiddleware,
+  checkAdmMiddleware,
+  UserController.index
+);
 userRoutes.get("/:id", ensureAuthMiddleware, UserController.list);
 userRoutes.patch("/:id", ensureAuthMiddleware, UserController.update);
 userRoutes.delete("/:id", ensureAuthMiddleware, UserController.delete);

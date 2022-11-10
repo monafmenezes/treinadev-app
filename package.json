@@ -1,0 +1,12 @@
+{
+  "name": "treinadev",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:monafmenezes/treinadev.git",
+  "author": "Monalisa Menezes <monalisa.menezes@onesight.com.br>",
+  "license": "MIT",
+  "scripts": {
+    "build": "rm -rf ./api/dist && tsc",
+    "start": "node ./api/dist/index.js"
+  }
+}

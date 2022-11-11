@@ -1,8 +1,6 @@
 import { DataSource } from "typeorm";
 import "dotenv/config";
 
-const host = process.env.NODE_ENV === "dockerdev" ? "postgres" : "localhost";
-
 export const AppDataSource = new DataSource({
   type: "postgres",
   url: process.env.DATABASE_URL,

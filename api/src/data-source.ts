@@ -9,6 +9,7 @@ export const AppDataSource = new DataSource({
       ? { rejectUnauthorized: false }
       : false,
   synchronize: false,
+  host: "localhost",
   logging: true,
   entities:
     process.env.NODE_ENV === "production"

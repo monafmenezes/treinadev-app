@@ -45,6 +45,9 @@ export const ModuleProvider = ({ children }) => {
       headers: {
         Authorization: `Bearer ${token}`,
       },
+    }).then(() => toast.success("Deu certo!")).catch((err) => {
+      console.log(err);
+      toast.error("Ops, algo deu errado!")
     });
   };
 

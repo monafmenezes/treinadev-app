@@ -1,11 +1,15 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import Header from "../../components/Header";
 import { CourseContext } from "../../providers/course";
 import { Container } from "./style";
 
 const CoursePage = () => {
-  const { courseId, searchCourse } = useContext(CourseContext);
+  const { courseId, searchCourse,  getCourses } = useContext(CourseContext);
   const data = searchCourse(courseId);
+
+  useEffect(() => {
+    getCourses();
+  }, []);
 
   return (
     <>

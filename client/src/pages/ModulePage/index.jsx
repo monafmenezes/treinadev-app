@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import CardModule from "../../components/CardModule";
 import Header from "../../components/Header";
@@ -6,9 +6,13 @@ import { CourseContext } from "../../providers/course";
 import { Container, Content } from "./style";
 
 const ModulePage = () => {
-  const { searchCourse } = useContext(CourseContext);
+  const { searchCourse, getCourses } = useContext(CourseContext);
   const { id } = useParams();
   const data = searchCourse(id);
+
+  useEffect(() => {
+    getCourses();
+  }, []);
 
   return (
     <>

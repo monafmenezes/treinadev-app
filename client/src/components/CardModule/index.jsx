@@ -4,12 +4,42 @@ import Button from "../Button";
 import ModalLesson from "../ModalLesson";
 import { useContext, useState } from "react";
 import { ModuleContext } from "../../providers/module";
+import * as yup from "yup";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import Input from "../Input";
+import { Box, Dialog, IconButton } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import { CourseContext } from "../../providers/course";
 
 const CardModule = ({ module, isAdmin }) => {
   const [lessonModal, setLessonModal] = useState(false);
-  const { deleteModule } = useContext(ModuleContext);
+  const { deleteModule, updateModule } = useContext(ModuleContext);
+  const [modalOpen, setModalOpen] = useState(false);
+  const { getCourses } = useContext(CourseContext);
+  const schema = yup.object().shape({
+    title: yup.string(),
+    description: yup.string(),
+  });
 
-  console.log(module);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  const submit = ({ title, description }) => {
+    updateModule({ id: module.id, title, description });
+    getCourses();
+    setModalOpen(false);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+
   const handleDelete = () => {
     deleteModule({ id: module.id });
   };
@@ -20,6 +50,7 @@ const CardModule = ({ module, isAdmin }) => {
         <>
           <Text>
             <h2>{module.title}</h2>
+            <p>{module.description}</p>
           </Text>
           <div>
             <ContainerButton>
@@ -28,7 +59,9 @@ const CardModule = ({ module, isAdmin }) => {
               </Button>
             </ContainerButton>
             <ContainerButton>
-              <Button purpleSchema>Editar</Button>
+              <Button purpleSchema onClick={() => setModalOpen(true)}>
+                Editar
+              </Button>
             </ContainerButton>
             <ContainerButton>
               <Button onClick={handleDelete} purpleSchema>
@@ -41,6 +74,52 @@ const CardModule = ({ module, isAdmin }) => {
             setModalOpen={setLessonModal}
             moduleId={module.id}
           />
+          <Dialog open={modalOpen} onClose={handleCloseModal}>
+            {handleCloseModal ? (
+              <IconButton
+                aria-label="close"
+                onClick={handleCloseModal}
+                sx={{
+                  position: "absolute",
+                  right: 8,
+                  top: 8,
+                  color: "#FFFFFF",
+                }}
+              >
+                <CloseIcon />
+              </IconButton>
+            ) : null}
+            <Box
+              sx={{
+                width: 400,
+                height: 300,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "space-around",
+                margin: "auto",
+                backgroundColor: "#1F1A38",
+                color: "#FFFFFF",
+              }}
+            >
+              <h2>Edite o módulo</h2>
+              <form onSubmit={handleSubmit(submit)}>
+                <Input
+                  label="Titulo"
+                  register={register}
+                  name="title"
+                  error={errors.name?.message}
+                />
+                <Input
+                  label="Descrição"
+                  register={register}
+                  name="description"
+                  error={errors.name?.message}
+                />
+                <Button type="submit">Enviar</Button>
+              </form>
+            </Box>
+          </Dialog>
         </>
       ) : (
         <>

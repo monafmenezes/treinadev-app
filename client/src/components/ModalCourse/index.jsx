@@ -26,6 +26,7 @@ const ModalCourse = ({ modalOpen, setModalOpen }) => {
 
   const submit = ({ title, description }) => {
     createCourse({ title, description });
+    getCourses();
     setModalOpen(false);
   };
 

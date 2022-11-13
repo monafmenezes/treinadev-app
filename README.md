@@ -54,7 +54,7 @@ $ yarn typeorm migration:run -d src/data-source.ts
 # Execute a aplicação em modo de desenvolvimento
 $ yarn dev
 
-# O servidor inciará na porta:3000 - acesse <http://localhost:8000>
+# O servidor inciará na porta:8000 - acesse <http://localhost:8000>
 ```
 ### ✅ Autor
 <img style="border-radius: 50%;" src="https://github.com/monafmenezes.png" width="100px;" alt=""/>

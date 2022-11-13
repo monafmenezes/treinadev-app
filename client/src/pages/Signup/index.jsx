@@ -43,7 +43,7 @@ const Signup = () => {
       <Content>
         <AnimationContainer>
           <form onSubmit={(handleSubmit(submit))}>
-            <h1>Cadastro</h1>
+            <h1><Link to="/">{'<Treinadev 💻 />'}</Link> Cadastro</h1>
             <Input
               icon={FiUser}
               label="Nome"

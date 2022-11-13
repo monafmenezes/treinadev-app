@@ -2,7 +2,11 @@ import styled, { css } from "styled-components";
 
 export const Container = styled.div`
     text-align: left;
+    display: flex;
+    flex-direction: column;
     div {
+        align-self: flex-start;
+        width: 100%;
         span {
             color: var(--red);
             font-size: 11px;
@@ -19,7 +23,7 @@ export const InputContainer = styled.div`
     display: flex;
     transition: 0.4s;
     ${(props) =>
-    props.isErrored && css`
+        props.isErrored && css`
         border-color: var(--red);
         svg: var(--red);
     `}
@@ -32,7 +36,7 @@ export const InputContainer = styled.div`
         &::placeholder {
             color: var(--gray);
         }
-    }
+    }y
     svg{
         margin-right: 16px;
     }

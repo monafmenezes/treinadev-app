@@ -26,7 +26,6 @@ const ModalLesson = ({ modalOpen, setModalOpen, moduleId }) => {
   });
 
   const submit = ({ title, description, date_lesson }) => {
-    console.log('clicou')
     createLesson({ title, description, moduleId, date_lesson });
     setModalOpen(false);
   };

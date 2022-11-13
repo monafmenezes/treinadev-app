@@ -48,21 +48,19 @@ export const LessonProvider = ({ children }) => {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then(() => toast.success("Aula excluída"))
+      .then(() => toast.success("Aula atualizada!"))
       .catch(() => toast.error("Ops, houve um erro!"));
   };
 
   const deleteLesson = ({ id }) => {
-    const params = { id };
     api
-      .patch(`lessons/${id}`, {
+      .delete(`lessons/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        params,
       })
-      .then(() => toast.success("Aula excluído!"))
-      .catch(() => toast.error("Houve um erro, tente novamente!"));
+      .then(() => toast.success("Aula excluída!"))
+      .catch((err) => toast.error("Houve um erro, tente novamente!"));
   };
 
   return (

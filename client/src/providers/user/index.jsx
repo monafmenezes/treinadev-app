@@ -6,6 +6,7 @@ export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [admin, setAdmin] = useState(false);
 
   const navigation = useNavigate();
 
@@ -32,7 +33,7 @@ export const UserProvider = ({ children }) => {
 
   return (
     <UserContext.Provider
-      value={{ user, setUser, createUser, getUser }}
+      value={{ user, setUser, createUser, getUser, admin, setAdmin }}
     >
       {children}
     </UserContext.Provider>

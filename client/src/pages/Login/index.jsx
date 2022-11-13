@@ -21,7 +21,7 @@ const Login = () => {
       .required("Campo obrigatório"),
   });
 
-  const { getUser } = useContext(UserContext);
+  const { getUser, setAdmin } = useContext(UserContext);
 
   const {
     register,
@@ -39,10 +39,11 @@ const Login = () => {
       authService.setLoggedUser(res.data.token);
       const decode = jwt_decode(res.data.token);
       const user = await getUser(decode.sub, res.data.token);
-      if (user.data.isAdmin) return navigation("/admin");
+      setAdmin(user.isAdmin)
       toast.success("Você está logado!");
       return navigation("/home");
     } catch (error) {
+      console.log(error);
       toast.error(
         "Algo deu errado, verifique as informações e tente novamente!"
       );

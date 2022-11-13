@@ -46,6 +46,11 @@ const CardModule = ({ module, isAdmin }) => {
     deleteModule({ id: module.id });
   };
 
+  const handleLesson = () => {
+    setModalLessons(true);
+    getCourses();
+  };
+
   return (
     <Container>
       {isAdmin ? (
@@ -70,22 +75,11 @@ const CardModule = ({ module, isAdmin }) => {
                 Delete
               </Button>
             </ContainerButton>
-            <ContainerButton>
-              <Button onClick={() => setModalLessons(true)} purpleSchema>
-                Aulas
-              </Button>
-            </ContainerButton>
           </div>
           <ModalLesson
             modalOpen={lessonModal}
             setModalOpen={setLessonModal}
             moduleId={module.id}
-          />
-          <Lessons
-            modalOpen={modalLessons}
-            setModalOpen={setModalLessons}
-            lesson={module.lesson}
-            isAdmin
           />
           <Dialog open={modalOpen} onClose={handleCloseModal}>
             {handleCloseModal ? (
@@ -150,6 +144,17 @@ const CardModule = ({ module, isAdmin }) => {
           </IconContent>
         </>
       )}
+      <Lessons
+        modalOpen={modalLessons}
+        setModalOpen={setModalLessons}
+        lesson={module.lesson}
+        isAdmin={isAdmin}
+      />
+      <ContainerButton>
+        <Button onClick={handleLesson} purpleSchema>
+          Aulas
+        </Button>
+      </ContainerButton>
     </Container>
   );
 };

@@ -1,5 +1,5 @@
 <h1 align="center">
-    <a href="https://treinadev-5hs5hfq0o-monafmenezes.vercel.app/">🔗 Treinadev</a>
+    <a href="https://treinadev-app.vercel.app/">🔗 Treinadev</a>
 </h1>
 <h3 align="center">
     <a href="https://treinadev-app.herokuapp.com/api-docs/">🔗 Documentação da Api</a>

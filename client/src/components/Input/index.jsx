@@ -1,7 +1,6 @@
 import { Container, InputContainer } from "./style";
 
 const Input = ({ label, icon: Icon, register, name, error = "", ...rest }) => {
-  console.log(register, name);
   return (
     <Container>
       <div>

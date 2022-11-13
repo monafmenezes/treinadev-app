@@ -4,8 +4,8 @@ import { SchemaOf } from "yup";
 import { IUserSession } from "../interfaces/user.interfaces";
 
 export const sessionsLogin: SchemaOf<IUserSession> = yup.object().shape({
-  username: yup.string().required("nome é obrigatório"),
-  password: yup.string().required("senha é obrigatório"),
+  username: yup.string().required("Username é obrigatório"),
+  password: yup.string().required("Senha é obrigatória"),
 });
 
 export const validateSessionsLogin =

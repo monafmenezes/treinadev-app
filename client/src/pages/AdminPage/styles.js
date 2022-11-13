@@ -30,7 +30,5 @@ export const Content = styled.div`
   ul {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
   }
 `

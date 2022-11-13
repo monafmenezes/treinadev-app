@@ -34,5 +34,12 @@ export default createGlobalStyle`
     }
     a {
         text-decoration: none;
+        color: var(--kobi);
+    }
+    ul {
+        list-style: none;
+    }
+    h2 {
+        font-weight: 300;
     }
 `

@@ -4,17 +4,17 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Button from "../Button";
 import { useContext } from "react";
-import { CourseContext } from "../../providers/course";
+import { ModuleContext } from "../../providers/module";
 import { Box, Dialog, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 
-const ModalCourse = ({ modalOpen, setModalOpen }) => {
+const ModalCourse = ({ modalOpen, setModalOpen, courseId }) => {
   const schema = yup.object().shape({
     title: yup.string().required("Campo obrigatório"),
     description: yup.string().required("Campo obrigatório"),
   });
 
-  const { createCourse, getCourses } = useContext(CourseContext);
+  const { createModule } = useContext(ModuleContext);
 
   const {
     register,
@@ -25,12 +25,11 @@ const ModalCourse = ({ modalOpen, setModalOpen }) => {
   });
 
   const submit = ({ title, description }) => {
-    createCourse({ title, description });
+    createModule({ title, description, courseId });
     setModalOpen(false);
   };
 
   const handleCloseModal = () => {
-    getCourses();
     setModalOpen(false);
   };
 
@@ -63,19 +62,21 @@ const ModalCourse = ({ modalOpen, setModalOpen }) => {
           color: "#FFFFFF",
         }}
       >
-        <h2>Edite o curso</h2>
+        <h2>Crie um módulo</h2>
         <form onSubmit={handleSubmit(submit)}>
           <Input
-            label="Curso"
+            label="Módulo"
             register={register}
             name="title"
             error={errors.name?.message}
+            placeholder="Nome do módulo"
           />
           <Input
             label="Descrição"
             register={register}
             name="description"
             error={errors.name?.message}
+            placeholder="Descrição do módulo"
           />
           <Button type="submit" purpleSchema>
             Enviar

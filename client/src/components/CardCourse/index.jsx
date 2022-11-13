@@ -1,5 +1,5 @@
-import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { CourseContext } from "../../providers/course";
 import Button from "../Button";
 import { Container, ContainerButton } from "./style";
@@ -9,10 +9,14 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Input from "../Input";
+import { IconButton } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import ModalModule from "../../components/ModalModule";
 
 const CardCourse = ({ title, description, id, admin = false }) => {
   const { setCourseId, deleteCourse, updateCourse } = useContext(CourseContext);
   const [modalOpen, setModalOpen] = useState(false);
+  const [moduleOpen, setModuleOpen] = useState(false);
   const navigate = useNavigate();
 
   const schema = yup.object().shape({
@@ -46,13 +50,18 @@ const CardCourse = ({ title, description, id, admin = false }) => {
     setModalOpen(false);
   };
 
+
   return (
     <Container>
-      <h3>{title}</h3>
+      <Link to={`/module/${id}`}>
+        <h3>{title}</h3>
+      </Link>
       <p>{description}</p>
       {admin ? (
         <ContainerButton>
-          <Button purpleSchema>Criar Módulos</Button>
+          <Button purpleSchema onClick={() => setModuleOpen(true)}>
+            Criar Módulos
+          </Button>
           <Button onClick={() => setModalOpen(true)} purpleSchema>
             Editar
           </Button>
@@ -67,6 +76,20 @@ const CardCourse = ({ title, description, id, admin = false }) => {
       )}
 
       <Dialog open={modalOpen} onClose={handleCloseModal}>
+        {handleCloseModal ? (
+          <IconButton
+            aria-label="close"
+            onClick={handleCloseModal}
+            sx={{
+              position: "absolute",
+              right: 8,
+              top: 8,
+              color: "#FFFFFF",
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+        ) : null}
         <Box
           sx={{
             width: 400,
@@ -98,6 +121,11 @@ const CardCourse = ({ title, description, id, admin = false }) => {
           </form>
         </Box>
       </Dialog>
+      <ModalModule
+        modalOpen={moduleOpen}
+        setModalOpen={setModuleOpen}
+        courseId={id}
+      />
     </Container>
   );
 };

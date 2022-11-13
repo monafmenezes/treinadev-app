@@ -1,79 +1,72 @@
 import { createContext, useState } from "react";
 import { toast } from "react-toastify";
 import api from "../../services/api";
+import { orderBy } from "../../utils";
 
-export const CourseContext = createContext();
+export const ModuleContext = createContext();
 
-export const CourseProvider = ({ children }) => {
-  const [courses, setCourses] = useState(null);
+export const ModuleProvider = ({ children }) => {
+  const [modules, setModules] = useState(null);
   const token = JSON.parse(localStorage.getItem("token"));
 
-  const createCourse = ({ title, description }) => {
-    const params = { title, description };
+  const createModule = ({ title, description, courseId }) => {
+    const params = { title, description, courseId };
     api
-      .post("courses", params, {
+      .post("modules", params, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then(() => {
-        toast.success("Curso criado com sucesso!");
+        toast.success("Modulo criado com sucesso!");
       })
       .catch((err) => {
         console.log(err);
-        toast.error("Erro ao criar curso!");
+        toast.error("Erro ao criar modulo!");
       });
   };
 
-  const getCourses = () => {
+  const getModules = () => {
     api
-      .get("courses", {
+      .get("modules", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((res) => {
-        setCourses(res.data);
-        console.log(courses);
+        setModules(orderBy(res.data));
       })
       .catch((err) => console.log(err));
   };
 
-  const updateCourse = ({ id, title, description }) => {
+  const updateModule = ({ id, title, description }) => {
     const params = { id, title, description };
-    api.patch(`courses/${id}`, {
+    api.patch(`modules/${id}`, params, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-      params,
     });
   };
 
-  const deleteCourse = ({ id }) => {
-    const params = { id };
+  const deleteModule = ({ id }) => {
     api
-      .patch(`courses/${id}`, {
+      .delete(`modules/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        params,
       })
-      .then(() => toast.success("Curso excluído!"))
-      .catch(() => toast.error("Houve um erro, tente novamente!"));
+      .then(() => toast.success("Modulo excluído!"))
+      .catch((err) => {
+        console.log(err);
+        toast.error("Houve um erro, tente novamente!");
+      });
   };
 
   return (
-    <CourseContext.Provider
-      value={{
-        courses,
-        setCourses,
-        createCourse,
-        getCourses,
-        updateCourse,
-        deleteCourse,
-      }}
+    <ModuleContext.Provider
+      value={{ modules, getModules, updateModule, deleteModule, createModule }}
     >
       {children}
-    </CourseContext.Provider>
+    </ModuleContext.Provider>
   );
 };

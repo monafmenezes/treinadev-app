@@ -25,7 +25,7 @@ export class Module {
   @Column()
   courseId: string;
 
-  @ManyToOne((type) => Course, (course) => course.modules)
+  @ManyToOne((type) => Course, (course) => course.modules, { onDelete: 'CASCADE' })
   course: Course;
 
   @OneToMany((type) => Lesson, (lesson) => lesson.module, {

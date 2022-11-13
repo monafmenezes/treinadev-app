@@ -2,6 +2,7 @@ import api from "../services/api";
 
 const authService = {
   async authenticate({ username, password }) {
+    localStorage.clear();
     const params = { username, password };
     return api.post("login", params);
   },

@@ -4,17 +4,18 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Button from "../Button";
 import { useContext } from "react";
-import { CourseContext } from "../../providers/course";
+import { LessonContext } from "../../providers/lesson";
 import { Box, Dialog, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 
-const ModalCourse = ({ modalOpen, setModalOpen }) => {
+const ModalLesson = ({ modalOpen, setModalOpen, moduleId }) => {
   const schema = yup.object().shape({
     title: yup.string().required("Campo obrigatório"),
     description: yup.string().required("Campo obrigatório"),
+    date_lesson: yup.string().required("Campo obrigatório"),
   });
 
-  const { createCourse, getCourses } = useContext(CourseContext);
+  const { createLesson } = useContext(LessonContext);
 
   const {
     register,
@@ -24,13 +25,13 @@ const ModalCourse = ({ modalOpen, setModalOpen }) => {
     resolver: yupResolver(schema),
   });
 
-  const submit = ({ title, description }) => {
-    createCourse({ title, description });
+  const submit = ({ title, description, date_lesson }) => {
+    console.log('clicou')
+    createLesson({ title, description, moduleId, date_lesson });
     setModalOpen(false);
   };
 
   const handleCloseModal = () => {
-    getCourses();
     setModalOpen(false);
   };
 
@@ -53,7 +54,7 @@ const ModalCourse = ({ modalOpen, setModalOpen }) => {
       <Box
         sx={{
           width: 400,
-          height: 300,
+          height: 400,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -63,20 +64,30 @@ const ModalCourse = ({ modalOpen, setModalOpen }) => {
           color: "#FFFFFF",
         }}
       >
-        <h2>Edite o curso</h2>
+        <h2>Crie uma aula</h2>
         <form onSubmit={handleSubmit(submit)}>
           <Input
-            label="Curso"
+            label="Aula"
             register={register}
             name="title"
             error={errors.name?.message}
+            placeholder="Nome da Aula"
           />
           <Input
             label="Descrição"
             register={register}
             name="description"
             error={errors.name?.message}
+            placeholder="Descrição da Aula"
           />
+          <Input
+            label="Data"
+            register={register}
+            name="date_lesson"
+            error={errors.name?.message}
+            placeholder="12/20/2022"
+          />
+
           <Button type="submit" purpleSchema>
             Enviar
           </Button>
@@ -86,4 +97,4 @@ const ModalCourse = ({ modalOpen, setModalOpen }) => {
   );
 };
 
-export default ModalCourse;
+export default ModalLesson;

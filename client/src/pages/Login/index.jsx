@@ -21,7 +21,7 @@ const Login = () => {
       .required("Campo obrigatório"),
   });
 
-  const { getUser, setToken } = useContext(UserContext);
+  const { getUser } = useContext(UserContext);
 
   const {
     register,

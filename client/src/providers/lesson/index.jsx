@@ -1,81 +1,81 @@
 import { createContext, useState } from "react";
 import { toast } from "react-toastify";
 import api from "../../services/api";
+import { orderBy } from "../../utils";
 
-export const CourseContext = createContext();
+export const LessonContext = createContext();
 
-export const CourseProvider = ({ children }) => {
-  const [courses, setCourses] = useState(null);
+export const LessonProvider = ({ children }) => {
+  const [lessons, setLessons] = useState(null);
   const token = JSON.parse(localStorage.getItem("token"));
 
-  const createCourse = ({ title, description }) => {
-    const params = { title, description };
-  
+  const createLesson = ({ title, description, moduleId, date_lesson }) => {
+    const params = { title, description, moduleId, date_lesson };
 
     api
-      .post("courses", params, {
+      .post("lessons", params, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then(() => {
-        toast.success("Curso criado com sucesso!");
+        toast.success("Aula criada com sucesso!");
       })
       .catch((err) => {
         console.log(err);
-        toast.error("Erro ao criar curso!");
+        toast.error("Erro ao criar aula!");
       });
   };
 
-  const getCourses = () => {
+  const getLessons = () => {
     api
-      .get("courses", {
+      .get("lessons", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((res) => {
-        setCourses(res.data);
-  
+        setLessons(orderBy(res.data));
       })
       .catch((err) => console.log(err));
   };
 
-  const updateCourse = ({ id, title, description }) => {
+  const updateLesson = ({ id, title, description }) => {
     const params = { id, title, description };
-    api.patch(`courses/${id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      params,
-    });
+    api
+      .patch(`lessons/${id}`, params, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(() => toast.success("Aula excluída"))
+      .catch(() => toast.error("Ops, houve um erro!"));
   };
 
-  const deleteCourse = ({ id }) => {
+  const deleteLesson = ({ id }) => {
     const params = { id };
     api
-      .patch(`courses/${id}`, {
+      .patch(`lessons/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
         params,
       })
-      .then(() => toast.success("Curso excluído!"))
+      .then(() => toast.success("Aula excluído!"))
       .catch(() => toast.error("Houve um erro, tente novamente!"));
   };
 
   return (
-    <CourseContext.Provider
+    <LessonContext.Provider
       value={{
-        courses,
-        setCourses,
-        createCourse,
-        getCourses,
-        updateCourse,
-        deleteCourse,
+        lessons,
+        getLessons,
+        deleteLesson,
+        updateLesson,
+        createLesson,
       }}
     >
       {children}
-    </CourseContext.Provider>
+    </LessonContext.Provider>
   );
 };

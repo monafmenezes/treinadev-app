@@ -4,6 +4,7 @@ import Header from "../../components/Header";
 import { CourseContext } from "../../providers/course";
 import { Container, Content } from "./style";
 
+
 const Home = () => {
   const { getCourses, courses } = useContext(CourseContext);
   useEffect(() => {

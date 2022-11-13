@@ -39,4 +39,7 @@ export default createGlobalStyle`
     ul {
         list-style: none;
     }
+    h2 {
+        font-weight: 300;
+    }
 `

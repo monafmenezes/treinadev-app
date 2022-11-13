@@ -7,23 +7,20 @@ import { CourseContext } from "../../providers/course";
 import CardCourse from "../../components/CardCourse";
 
 const AdminPage = () => {
-  const [isCourse, setIsCourse] = useState(true);
   const [registerCourse, setRegisterCourse] = useState(false);
   const { getCourses, courses } = useContext(CourseContext);
 
   useEffect(() => {
     getCourses();
-  });
-
+  }, []);
 
   const handleRegister = () => {
-    setIsCourse(false);
     setRegisterCourse(true);
   };
-  const handleCourses = () => {
-    getCourses();
-    setIsCourse(true);
+
+  const handleClose = () => {
     setRegisterCourse(false);
+    getCourses();
   };
 
   return (
@@ -33,12 +30,11 @@ const AdminPage = () => {
         <h2>Admin Page</h2>
         <Content>
           <div>
-            <Button onClick={handleCourses}>Cursos</Button>
             <Button onClick={handleRegister}>Cadastrar novo curso</Button>
           </div>
-          {isCourse && courses && (
-            <ul>
-              {courses.map((course) => (
+          <ul>
+            {courses &&
+              courses.map((course) => (
                 <li key={course.id}>
                   <CardCourse
                     title={course.title}
@@ -48,9 +44,9 @@ const AdminPage = () => {
                   />
                 </li>
               ))}
-            </ul>
-          )}
-          {registerCourse && <ModalCourse />}
+          </ul>
+
+          <ModalCourse modalOpen={registerCourse} setModalOpen={handleClose} />
         </Content>
       </Container>
     </>

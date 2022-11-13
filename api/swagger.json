@@ -215,6 +215,46 @@
         }
       }
     },
+    "/login": {
+      "post": {
+        "summary": "Login de usuário",
+          "description": "Essa rota será responsável pelo login de usuários",
+          "tags": ["Login"],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Login"
+                }, 
+                "examples": {
+                  "login": {
+                    "value": {
+                      "username": "usuario",
+                      "password": "12345678"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "OK", 
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "$ref": "#/components/schemas/Login"
+                  }
+                }
+              }
+            }, 
+            "404": {
+              "description": "Usuário ou senha inválidos"
+            }
+        }
+      }
+    },
     "/courses": {
       "post": {
         "summary": "Cadastro de novos cursos",
@@ -935,6 +975,20 @@
           }
 
         }
+    },
+    "Login": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        }
+      }
     }
 },
 "securitySchemes": {

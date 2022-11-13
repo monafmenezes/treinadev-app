@@ -1,6 +1,7 @@
 import { createContext, useState } from "react";
 import { toast } from "react-toastify";
 import api from "../../services/api";
+import { orderBy } from "../../utils";
 
 export const CourseContext = createContext();
 
@@ -34,7 +35,8 @@ export const CourseProvider = ({ children }) => {
         },
       })
       .then((res) => {
-        setCourses(res.data);
+        const course = orderBy(res.data);
+        setCourses(course);
       })
       .catch((err) => console.log(err));
   };
@@ -47,7 +49,10 @@ export const CourseProvider = ({ children }) => {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then(() => toast.success("Curso alterado!"))
+      .then(() => {
+        toast.success("Curso alterado!");
+        getCourses();
+      })
       .catch((err) => {
         toast.error("Houve um erro!");
       });

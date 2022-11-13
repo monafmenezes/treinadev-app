@@ -21,6 +21,6 @@ export class Lesson {
   @Column()
   date_lesson: Date;
 
-  @ManyToOne((type) => Module, (module) => module.lesson)
+  @ManyToOne((type) => Module, (module) => module.lesson, { onDelete: 'CASCADE' })
   module: Module;
 }

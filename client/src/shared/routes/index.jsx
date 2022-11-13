@@ -6,6 +6,7 @@ import Login from "../../pages/Login";
 import Signup from "../../pages/Signup";
 import AdminPage from "../../pages/AdminPage";
 import CoursePage from "../../pages/CoursePage";
+import ModulePage from "../../pages/ModulePage";
 
 const RoutesPages = () => {
   return (
@@ -34,6 +35,14 @@ const RoutesPages = () => {
         element={
           <ProtectRoute>
             <AdminPage />
+          </ProtectRoute>
+        }
+      />
+      <Route
+        path="/module/:id"
+        element={
+          <ProtectRoute>
+            <ModulePage />
           </ProtectRoute>
         }
       />

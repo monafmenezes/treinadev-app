@@ -6,7 +6,9 @@
 </h3>
 <p align="center">🚀 Pagina web de cursos que cria cursos, módulos e aulas e mostra para o usuário.</p>
 
-
+Usuário Adminstrador para teste: 
+username: admintreinadev
+senha: 12345678
 
 ### 🎲 Rodando o Frontend(React.js)
 

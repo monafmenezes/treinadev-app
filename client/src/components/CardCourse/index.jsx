@@ -1,5 +1,5 @@
-import { useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link } from "react-router-dom";
 import { CourseContext } from "../../providers/course";
 import Button from "../Button";
 import { Container, ContainerButton } from "./style";
@@ -14,10 +14,10 @@ import CloseIcon from "@mui/icons-material/Close";
 import ModalModule from "../../components/ModalModule";
 
 const CardCourse = ({ title, description, id, admin = false }) => {
-  const { setCourseId, deleteCourse, updateCourse } = useContext(CourseContext);
+  const { deleteCourse, updateCourse } = useContext(CourseContext);
   const [modalOpen, setModalOpen] = useState(false);
   const [moduleOpen, setModuleOpen] = useState(false);
-  const navigate = useNavigate();
+ 
 
   const schema = yup.object().shape({
     title: yup.string(),
@@ -37,10 +37,6 @@ const CardCourse = ({ title, description, id, admin = false }) => {
     setModalOpen(false);
   };
 
-  const handleCourse = () => {
-    setCourseId(id);
-    navigate(`/course/${title}`);
-  };
 
   const handleDelete = () => {
     deleteCourse({ id });
@@ -50,14 +46,13 @@ const CardCourse = ({ title, description, id, admin = false }) => {
     setModalOpen(false);
   };
 
-
   return (
     <Container>
       <Link to={`/module/${id}`}>
         <h3>{title}</h3>
       </Link>
       <p>{description}</p>
-      {admin ? (
+      {admin && (
         <ContainerButton>
           <Button purpleSchema onClick={() => setModuleOpen(true)}>
             Criar Módulos
@@ -69,10 +64,6 @@ const CardCourse = ({ title, description, id, admin = false }) => {
             Excluir
           </Button>
         </ContainerButton>
-      ) : (
-        <Button onClick={handleCourse} purpleSchema>
-          Saba mais
-        </Button>
       )}
 
       <Dialog open={modalOpen} onClose={handleCloseModal}>

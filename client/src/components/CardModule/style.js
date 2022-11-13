@@ -2,10 +2,12 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   height: 170px;
-  width: 350px;
+  width: 100%;
+  min-width: 350px;
+  max-width: 500px;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
   border: 1px solid var(--kobi);
   border-radius: 6px;
   padding: 1rem;

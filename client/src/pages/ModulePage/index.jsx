@@ -3,10 +3,12 @@ import { useParams } from "react-router-dom";
 import CardModule from "../../components/CardModule";
 import Header from "../../components/Header";
 import { CourseContext } from "../../providers/course";
+import { UserContext } from "../../providers/user";
 import { Container, Content } from "./style";
 
 const ModulePage = () => {
   const { searchCourse, getCourses } = useContext(CourseContext);
+  const { admin } = useContext(UserContext);
   const { id } = useParams();
   const data = searchCourse(id);
 
@@ -25,7 +27,7 @@ const ModulePage = () => {
             {data &&
               data.modules.map((module) => (
                 <li key={module.id}>
-                  <CardModule isAdmin module={module} />
+                  <CardModule isAdmin={admin} module={module} />
                 </li>
               ))}
           </ul>

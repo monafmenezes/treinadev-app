@@ -5,11 +5,12 @@ import ModalCourse from "../../components/ModalCourse";
 import { useContext, useEffect, useState } from "react";
 import { CourseContext } from "../../providers/course";
 import CardCourse from "../../components/CardCourse";
+import { UserContext } from "../../providers/user";
 
 const AdminPage = () => {
   const [registerCourse, setRegisterCourse] = useState(false);
   const { getCourses, courses } = useContext(CourseContext);
-
+  const { admin } = useContext(UserContext);
   useEffect(() => {
     getCourses();
   }, []);
@@ -27,11 +28,13 @@ const AdminPage = () => {
     <>
       <Header />
       <Container>
-        <h2>Admin Page</h2>
+        <h2>Cursos</h2>
         <Content>
-          <div>
-            <Button onClick={handleRegister}>Cadastrar novo curso</Button>
-          </div>
+          {admin && (
+            <div>
+              <Button onClick={handleRegister}>Cadastrar novo curso</Button>
+            </div>
+          )}
           <ul>
             {courses &&
               courses.map((course) => (
@@ -39,7 +42,7 @@ const AdminPage = () => {
                   <CardCourse
                     title={course.title}
                     description={course.description}
-                    admin
+                    admin={admin}
                     id={course.id}
                   />
                 </li>

@@ -19,6 +19,9 @@ $ git clone <git@github.com:monafmenezes/treinadev-app.git>
 # Acesse a pasta do projeto no terminal
 $ cd treinadev-app
 
+# Acesse a pasta client no terminal
+$ cd client
+
 # Instale as dependências
 $ yarn
 
@@ -26,6 +29,32 @@ $ yarn
 $ yarn start
 
 # O servidor inciará na porta:3000 - acesse <http://localhost:3000>
+```
+
+### 🎲 Rodando o Backend(Node.js)
+
+```bash
+# Clone este repositório
+
+# Acesse a pasta do projeto no terminal
+$ cd treinadev-app
+
+# Acesse a pasta client no terminal
+$ cd api
+
+# Instale as dependências
+$ yarn
+
+# Crie a imagem do banco de dados do docker (postgres)
+$ docker compose up
+
+# Gere as migrações 
+$ yarn typeorm migration:run -d src/data-source.ts
+
+# Execute a aplicação em modo de desenvolvimento
+$ yarn dev
+
+# O servidor inciará na porta:3000 - acesse <http://localhost:8000>
 ```
 ### ✅ Autor
 <img style="border-radius: 50%;" src="https://github.com/monafmenezes.png" width="100px;" alt=""/>

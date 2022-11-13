@@ -8,7 +8,7 @@ export const Container = styled.div`
 `
 
 export const Content = styled.div` 
-  max-width: 900px;
+  max-width: 1100px;
   width: 100%;
   margin: 2rem;
   border-radius: 6px;
@@ -33,4 +33,8 @@ export const Content = styled.div`
     align-items: center;
     justify-content: space-between;
   }
+`
+
+export const ButtonContainer = styled.div`
+  width: 200px;
 `

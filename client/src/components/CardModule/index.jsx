@@ -11,11 +11,13 @@ import Input from "../Input";
 import { Box, Dialog, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { CourseContext } from "../../providers/course";
+import Lessons from "../Lessons";
 
 const CardModule = ({ module, isAdmin }) => {
   const [lessonModal, setLessonModal] = useState(false);
   const { deleteModule, updateModule } = useContext(ModuleContext);
   const [modalOpen, setModalOpen] = useState(false);
+  const [modalLessons, setModalLessons] = useState(false);
   const { getCourses } = useContext(CourseContext);
   const schema = yup.object().shape({
     title: yup.string(),
@@ -68,11 +70,22 @@ const CardModule = ({ module, isAdmin }) => {
                 Delete
               </Button>
             </ContainerButton>
+            <ContainerButton>
+              <Button onClick={() => setModalLessons(true)} purpleSchema>
+                Aulas
+              </Button>
+            </ContainerButton>
           </div>
           <ModalLesson
             modalOpen={lessonModal}
             setModalOpen={setLessonModal}
             moduleId={module.id}
+          />
+          <Lessons
+            modalOpen={modalLessons}
+            setModalOpen={setModalLessons}
+            lesson={module.lesson}
+            isAdmin
           />
           <Dialog open={modalOpen} onClose={handleCloseModal}>
             {handleCloseModal ? (

@@ -8,7 +8,7 @@ import { Container, Content } from "./style";
 const ModulePage = () => {
   const { searchCourse, getCourses } = useContext(CourseContext);
   const { id } = useParams();
-  const data = searchCourse(id);
+  const data = searchCourse(id); 
 
   useEffect(() => {
     getCourses();
